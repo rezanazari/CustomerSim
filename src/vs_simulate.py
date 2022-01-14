@@ -37,7 +37,7 @@ def propagate(data, regressor, policy, prices, periods=12, num_actions=3, orig_a
     quantity = np.zeros((periods,data.shape[0],data.shape[1]), dtype = np.float32)
     amount = np.zeros((periods,data.shape[0],data.shape[1]), dtype = np.float32)
     
-    for t in xrange(periods):
+    for t in range(periods):
         
         # SELECTING ACTIONS - IF A TENSOR OF ORIGINAL ACTIONS IS PROVIDED, IGNORE POLICY
         if isinstance(orig_actions, (np.ndarray)):

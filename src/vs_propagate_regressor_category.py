@@ -20,7 +20,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 
 from keras.callbacks import ModelCheckpoint
-from keras.optimizers import Adam
+from keras.optimizers import adam_v2 as Adam
 
 import h5py
 import os
@@ -78,7 +78,7 @@ z_test = test_data[cols_Z].T
 del test_data
 
 unique, counts = np.unique(y_train[y_train!=0], return_counts=True)
-print np.asarray((unique, counts)).T
+print(np.asarray((unique, counts)).T)
 
 
 x_train_reshaped = x_train.reshape(x_train.shape[0]*x_train.shape[1],x_train.shape[2]*x_train.shape[3])
