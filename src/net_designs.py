@@ -43,7 +43,7 @@ class KDDRegressor(nn.Module):
         )
 
     def forward(self, x):
-        out = self.model(x)
+        out = self.model(x).squeeze()
         return out
 
 
