@@ -34,6 +34,25 @@ def KDDClassifier():
 
     return model
 
+def KDDClassifier3():
+
+    model = Sequential()
+
+    model.add(Dense(100))
+    model.add(Activation("relu"))
+    model.add(Dense(100))
+    model.add(Activation("relu"))
+    model.add(Dense(100))
+    model.add(Activation("relu"))
+    model.add(Dense(100))
+    model.add(Activation("relu"))
+    model.add(Dense(100))
+    model.add(Activation("relu"))
+    model.add(Dense(2))
+    model.add(Activation("softmax"))
+
+    return model
+
 
 def KDDRegressor():
 
