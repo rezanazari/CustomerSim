@@ -33,7 +33,7 @@ def sample_granular(net, bins, n_samples):
 def granularize(sampled_data,bins):
     for j in bins:
         na_level = len(bins[j])
-        for i in xrange(len(sampled_data)):
+        for i in range(len(sampled_data)):
             ind = sampled_data[i][j]
             if ind == na_level - 1:
                 sampled_data[i][j] = None
@@ -55,7 +55,7 @@ def propagate(data, classifier, regressor, policy, threshold=0.275, periods=12, 
     actions = np.zeros((periods,data.shape[0]), dtype = np.float32)
     donations = np.zeros((periods,data.shape[0]), dtype = np.float32)
     
-    for t in xrange(periods):
+    for t in range(periods):
         
         # SELECTING ACTIONS
         if isinstance(orig_actions, (np.ndarray)):

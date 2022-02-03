@@ -95,7 +95,7 @@ def sample(net, bins, n_samples):
     sampled_data = net.randomsample(n=n_samples)
     for j in bins:
         na_level = len(bins[j])
-        for i in xrange(len(sampled_data)):
+        for i in range(len(sampled_data)):
             ind = sampled_data[i][j]
             if ind == na_level - 1:
                 sampled_data[i][j] = None
@@ -109,7 +109,7 @@ def granularize(sampled_data,bins):
     for j in bins:
         na_level = len(bins[j])
 
-        for i in xrange(len(sampled_data)):
+        for i in range(len(sampled_data)):
             ind = sampled_data[i][j]
             if ind == na_level - 1: # if the sampled value corresponds to None variable
                 sampled_data[i][j] = None

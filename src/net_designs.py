@@ -19,18 +19,12 @@ def KDDClassifier():
 
     model = Sequential()
 
-    model.add(Dense(output_dim=100, input_dim=10))
-    model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
-    model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
-    model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
-    model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
-    model.add(Activation("relu"))
-    model.add(Dense(output_dim=2, input_dim=100))
-    model.add(Activation("softmax"))
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(2, activation="softmax"))
 
     return model
 
@@ -39,17 +33,12 @@ def KDDRegressor():
 
     model = Sequential()
 
-    model.add(Dense(output_dim=100, input_dim=10))
-    model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
-    model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
-    model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
-    model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
-    model.add(Activation("relu"))
-    model.add(Dense(output_dim=1, input_dim=100))
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(1, input_dim=100))
 
     return model
 
@@ -58,17 +47,17 @@ def VSRegressor():
 
     model = Sequential()
 
-    model.add(Dense(output_dim=100, input_dim=20*8))
+    model.add(Dense(100, input_dim=20*8))
     model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Dense(100, input_dim=100))
     model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Dense(100, input_dim=100))
     model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Dense(100, input_dim=100))
     model.add(Activation("relu"))
-    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Dense(100, input_dim=100))
     model.add(Activation("relu"))
-    model.add(Dense(output_dim=20, input_dim=100))
+    model.add(Dense(20, input_dim=100))
 
     return model
 

@@ -49,8 +49,8 @@ def reduce_data(loc_offers, loc_transactions, loc_reduced):
                     reduced += 1
             #progress
             if e % 5000000 == 0:
-                print e, reduced, datetime.now() - start
-    print e, reduced, datetime.now() - start
+                print(e, reduced, datetime.now() - start)
+    print(e, reduced, datetime.now() - start)
 
 
 reduce_data(loc_offers, loc_transactions, loc_reduced)
@@ -103,7 +103,7 @@ offer_data = ps.pivot_table(full_offer_history, values=['offer_ind','quantity','
 
 # RECORDING ALL OFFERS
 print('Recording offer data')
-for i in xrange(offer_data.shape[0]):
+for i in range(offer_data.shape[0]):
     temp = offer_data.iloc[i]
     if not temp.name[0] in customers:
         continue
@@ -115,11 +115,11 @@ for i in xrange(offer_data.shape[0]):
     data[ind][6] = temp.values[2] / temp.values[0]
     data[ind][7] = temp.values[1] / temp.values[0]
     if i % 50000 == 0:
-        print i
+        print(i)
 
 # RECORDING ALL TRANSACTIONS
 print('Recording transaction data')
-for i in xrange(purchase_data.shape[0]):
+for i in range(purchase_data.shape[0]):
     temp = purchase_data.iloc[i]
     ind = (customer_index[temp.name[0]],
            period_index[temp.name[1]],
@@ -128,11 +128,11 @@ for i in xrange(purchase_data.shape[0]):
     data[ind][8] = temp.values[1]
     data[ind][9] = temp.values[0] / temp.values[1]
     if i % 200000 == 0:
-        print i
+        print(i)
 
 # CALCULATING RFM-I METRICS
 print('Calculating RFM-I metrics')
-for p in xrange(1,len(trns_period)):
+for p in range(1,len(trns_period)):
     
     # update transaction RFM
     data[:,p,:,0] = (data[:,p-1,:,0] + 1) * (data[:,p-1,:,8] == 0)
@@ -143,7 +143,7 @@ for p in xrange(1,len(trns_period)):
     data[:,p,:,3] = (data[:,p-1,:,3] + 1) * (data[:,p-1,:,5] == 0)
     data[:,p,:,4] = data[:,p-1,:,4] + data[:,p-1,:,5]
     
-    print p
+    print (p)
 
 # SAVE DATA
 print('Saving data')
