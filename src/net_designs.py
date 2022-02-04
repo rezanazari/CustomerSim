@@ -1,69 +1,73 @@
 # NET DESIGNS
-import torch.nn as nn
+
+import os
+
+os.environ["THEANO_FLAGS"] = "device=cpu,floatX=float32"
+
+import numpy as np
+import random
+
+from matplotlib import rcParams
+
+rcParams['font.family'] = 'Euclid'
+import matplotlib.pyplot as plt
+
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Activation, Flatten
 
 
-class KDDClassifier(nn.Module):
-    def __init__(self, num_classes=2):
-        super(KDDClassifier, self).__init__()
-        self.model = nn.Sequential(
-            nn.Linear(10, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, num_classes),
-            nn.LogSoftmax()
-        )
+# MODELS
 
-    def forward(self, x):
-        out = self.model(x)
-        return out
+def KDDClassifier():
+    model = Sequential()
+
+    model.add(Dense(output_dim=100, input_dim=10))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=2, input_dim=100))
+    model.add(Activation("softmax"))
+
+    return model
 
 
-class KDDRegressor(nn.Module):
-    def __init__(self):
-        super(KDDRegressor, self).__init__()
-        self.model = nn.Sequential(
-            nn.Linear(10, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, 1),
-        )
+def KDDRegressor():
+    model = Sequential()
 
-    def forward(self, x):
-        out = self.model(x)
-        return out
+    model.add(Dense(output_dim=100, input_dim=10))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=1, input_dim=100))
+
+    return model
 
 
-class VSRegressor(nn.Module):
-    def __init__(self):
-        super(VSRegressor, self).__init__()
-        self.model = nn.Sequential(
-            nn.Linear(20 * 8, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, 100),
-            nn.ReLU(),
-            nn.Linear(100, 1),
-        )
+def VSRegressor():
+    model = Sequential()
 
-    def forward(self, x):
-        out = self.model(x)
-        return out
+    model.add(Dense(output_dim=100, input_dim=20 * 8))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=100, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=20, input_dim=100))
+
+    return model

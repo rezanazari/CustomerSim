@@ -1,8 +1,4 @@
 # Creating transition data from KDD1998 data competition
-# url <- "https://cran.r-project.org/src/contrib/Archive/zipcode/zipcode_1.0.tar.gz"
-# pkgFile <- "zipcode_1.0.tar.gz"
-# download.file(url = url, destfile = pkgFile)
-# install.packages(pkgs=pkgFile, type="source", repos=NULL)
 
 library("zipcode")
 library("plyr")
