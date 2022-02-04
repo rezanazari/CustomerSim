@@ -132,3 +132,5 @@ sympy-plots-for-*.tex/
 # WinEdt
 *.bak
 *.sav
+/gym_customersim/assets/
+/kdd98_data/
