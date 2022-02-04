@@ -1,12 +1,21 @@
-# CustomerSim
+# gym-customersim
 
 This repository contains code for `Customer simulation for direct marketing experiments` paper, [IEEE DSAA 2016](http://ieeexplore.ieee.org/document/7796934/). Authors: Yegor Tkachenko, Mykel J. Kochenderfer, Krzysztof Kluza.
 
+In this package, we provide a simluator to be called from SAS RL.
+
+# Install
+Run the following to install the "CustomerSim-v0" environment
+
+	pip install -e . 
+
+
+
 # Software
 
-Python is our main language (with some preprocessing done in R).
+Python is our main language.
 
-You will need the following Python packages
+You will need the following Python packages.
 
 + libpgm - for learning Bayesian networks (install from `https://github.com/CyberPoint/libpgm`)
 + Keras and Theano - for deep learning (make sure you have the cutting edge theano via `pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git`)
@@ -21,9 +30,6 @@ You will need the following Python packages
 + pandas
 + Cython
 + H5PY
-
-R prerequisites include
-
 + plyr
 + zipcode
 
@@ -32,8 +38,17 @@ R prerequisites include
 + KDD1998: `https://kdd.ics.uci.edu/databases/kddcup98/kddcup98.html` (accessed on 2015-07-04)
 + Valued Shoppers: `https://www.kaggle.com/c/acquire-valued-shoppers-challenge` (accessed on 2015-10-07)
 
-# Getting started
+# Run Simulator
++ gym_customersim includes the customer environment code for KDD98
++ to run the environment, you need to import it in the python after imporging ``gym``
 
+```python
+import gym
+import gym_customersim
+env = gym.make("CustomerSim-v0")
+```
+
+# Train Simulator Models
 + `src` folder contains the code to replicate results of the paper
 + the folder should be placed within a parent folder that contains unzipped data, downloaded from the links above
 + then run `bash train_and_validate_all.sh` - it will take a couple of hours to finish (to preprocess the data, to train and validate the models)
@@ -46,28 +61,32 @@ Note, this code contains a correction and uses &tau;=0.275 in KDD98 simulation, 
 # Required directory structure
 
 + customersim
-	+ train_and_validate_all.sh
-	+ simulate_kdd98.py
-	+ simulate_vs.py
-	+ kdd98_data
-		+ cup98LRN.txt
-		+ cup98VAL.txt
-	+ kaggle_valued_shoppers
-		+ offers
-		+ testHistory
-		+ trainHistory
-		+ transactions
-	+ src
-		+ net_designs.py
-		+ shared_functions.py
-		+ kdd98_preprocess.R
-		+ kdd98_initial_snapshot.py
-		+ kdd98_propagate_classifier.py
-		+ kdd98_propagate_regressor.py
-		+ kdd98_simulate.py
-		+ vs_preprocess_category.py
-		+ vs_propagate_regressor_category.py
-		+ vs_simulate.py
+    + train_and_validate_all.sh
+    + simulate_kdd98.py
+    + simulate_vs.py
+    + kdd98_data
+        + cup98LRN.txt
+        + cup98VAL.txt
+    + kaggle_valued_shoppers
+        + offers
+        + testHistory
+        + trainHistory
+        + transactions
+    + src
+        + net_designs.py
+        + shared_functions.py
+        + kdd98_preprocess.R
+        + kdd98_initial_snapshot.py
+        + kdd98_propagate_classifier.py
+        + kdd98_propagate_regressor.py
+        + kdd98_simulate.py
+        + vs_preprocess_category.py
+        + vs_propagate_regressor_category.py
+        + vs_simulate.py
+    + gym_customersim
+        + assets
+        + envs
+            + customer_sim.py 
 
 # Technical note - recency metric
 

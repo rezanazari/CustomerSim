@@ -9,16 +9,12 @@ import random
 
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 
+import keras
 from keras.utils.np_utils import to_categorical
 from keras.callbacks import ModelCheckpoint
 
+
 if __name__ == '__main__':
-    # seed
-    RANDOM_SEED = 777
-
-    np.random.seed(RANDOM_SEED)
-    random.seed(RANDOM_SEED)
-
     # LOAD DATA
     print('Loading data')
     data = ps.read_csv("../kdd98_data/kdd1998tuples.csv", header=None)
@@ -65,44 +61,10 @@ if __name__ == '__main__':
     x_test = test_data[cols_X].values.astype(np.float32)
     y_test = test_data[cols_Y].values.astype(np.int32)
 
-    # DEFINE NEURAL NET
-    print('Training KDD98 neural net classifier')
-
-    n_epochs = 50
-    batch_size = 100
     file_name = "../results/kdd98_propagation_classifier_best.h5"
 
-    # Define the kdd98 classifier model with Keras
-
     model = KDDClassifier()
-
-    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-
-    # Callback to save the best model
-    checkpoint = ModelCheckpoint(file_name, monitor='val_loss', save_best_only=True, save_weights_only=True)
-
-    # Fit the model
-    model.fit(x_train, to_categorical(y_train), batch_size=batch_size, epochs=n_epochs,
-              verbose=1, callbacks=[checkpoint], validation_data=(x_val, to_categorical(y_val)))
-
-    score = model.evaluate(x_test, to_categorical(y_test), verbose=1)
-    print('Test Loss: ' + str(score[0]) + '; Test Accuracy: ' + str(score[1]))
-
-    # VALIDATE CLASSIFIER
-    print('Validating neural net classifier')
-
+    model.build(input_shape=[100, 10])
+    model.load_weights(file_name)
     y_score = model.predict(x_test)
-
-    roc(to_categorical(y_test), y_score, name="../results/kdd98_propagation_classifier_roc.pdf")
-
-    # # TRAIN RANDOM FOREST
-    # print('Training random forest classifier')
-    # clf = RandomForestClassifier(n_estimators=100)
-    # clf = clf.fit(x_train, y_train.ravel())
-    #
-    # # VALIDATE RANDOM FOREST
-    # print('Validating random forest classifier')
-    # y_score = clf.predict(x_test)
-    #
-    # # SAVE ROC CURVE PLOT
-    # roc(to_categorical(y_test), y_score, name="../results/kdd98_propagation_classifier_roc_rf.pdf")
+    roc(to_categorical(y_test), y_score, name="../results/kdd98_propagation_classifier_roc5.pdf")
