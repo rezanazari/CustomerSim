@@ -32,7 +32,7 @@ class CustomerSimEnv(gym.Env):  # this class should inherit from gym.Env
         # create observation_space and action_space
         ## these two variables should be defined
         self.observation_space = spaces.Box(0, 100000, (9,))
-        self.action_space = spaces.Discrete(10)
+        self.action_space = spaces.Discrete(12)
 
     def load_data(self):
         """
@@ -44,7 +44,7 @@ class CustomerSimEnv(gym.Env):  # this class should inherit from gym.Env
                         'gender1', 'age1', 'income1', 'zip_region1', 'zip_la1', 'zip_lo1']
         data.columns = column_names
 
-        initial_states = data[data['period'] == 1][self.state_cols]
+        initial_states = data[data['period'] == 1][data['age'] != 0][self.state_cols]
         return initial_states
 
     def load_emulator_models(self):
@@ -63,7 +63,9 @@ class CustomerSimEnv(gym.Env):  # this class should inherit from gym.Env
         self.t = 0
         customer_id = self.rnd.randint(0, len(self.initial_states.index), 1)
         self.state = self.initial_states.iloc[customer_id[0]].to_numpy()
-        return copy.copy(self.state)
+        # normalize s
+        s = self.normalize(copy.copy(self.state))
+        return s
 
     def get_donation(self, s, a):
         # regressor and classifier get the state and action as the input to predict the reward
@@ -110,6 +112,8 @@ class CustomerSimEnv(gym.Env):  # this class should inherit from gym.Env
 
         # we assume that the other variables 'gender', 'age', 'income', 'zip_region', don't change
 
+        # normalize ns
+        ns = self.normalize(ns)
         # update the state of env
         self.state = ns
         self.t += 1
@@ -122,13 +126,24 @@ class CustomerSimEnv(gym.Env):  # this class should inherit from gym.Env
         return copy.copy(ns), reward, done, {}
 
     def seed(self, seed=None):
-        rnd = np.random.RandomState(seed)
-        return rnd
+        self.rnd = np.random.RandomState(seed)
+        return self.rnd
+
+    def normalize(self,
+                  s):
+        return s
 
 
 if __name__ == '__main__':
     env = CustomerSimEnv()
+    env.seed(52)
     s = env.reset()
-    ns, r, done, _ = env.step(0)
-
-    print("The code ran successfully!")
+    done = False
+    i = 0
+    cum_rew = 0
+    while not done:
+        ns, r, done, _ = env.step(5)
+        cum_rew += r
+        print("iteration: {} -- rew: {}".format(i, r))
+        i += 1
+    print("The code ran successfully with cum rew of ", cum_rew)
