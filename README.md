@@ -1,25 +1,29 @@
 # gym-customersim
 
-This repository contains code for `Customer simulation for direct marketing experiments` paper, [IEEE DSAA 2016](http://ieeexplore.ieee.org/document/7796934/). Authors: Yegor Tkachenko, Mykel J. Kochenderfer, Krzysztof Kluza.
+This repository contains environment for contexual bandit and reinforcement learning in the marketing. 
+We have two environments:
+1) `Customer simulation for direct marketing experiments` paper, [IEEE DSAA 2016](http://ieeexplore.ieee.org/document/7796934/). Authors: Yegor Tkachenko, Mykel J. Kochenderfer, Krzysztof Kluza.
+2) `Churn simulation` for a telecommunication industry example.
 
-In this package, we provide a simluator to be called from SAS RL.
+In this package, we provide these simulators to be called from SAS RL.
 
 # Install
-Run the following to install the "CustomerSim-v0" environment
+First clone the project:
 
+    https://github.com/rezanazari/gym-customersim.git
+
+And then, run the following to install the "CustomerSim-v0" and "ChurnSim-v2" environments:
+    
+    cd gym-customersim
 	pip install -e . 
 
+# Dependencies
 
-
-# Software
-
-Python is our main language.
-
-You will need the following Python packages.
+Python is our main language. You will need the following Python packages.
 
 + libpgm - for learning Bayesian networks (install from `https://github.com/CyberPoint/libpgm`)
 + Keras and Theano - for deep learning (make sure you have the cutting edge theano via `pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git`)
-+ scikit-learn - for random forests
++ scikit-learn - for random forests and logistic regression
 
 + NumPy
 + SciPy
@@ -37,18 +41,23 @@ You will need the following Python packages.
 
 + KDD1998: `https://kdd.ics.uci.edu/databases/kddcup98/kddcup98.html` (accessed on 2015-07-04)
 + Valued Shoppers: `https://www.kaggle.com/c/acquire-valued-shoppers-challenge` (accessed on 2015-10-07)
++ Churn data
 
 # Run Simulator
-+ gym_customersim includes the customer environment code for KDD98
-+ to run the environment, you need to import it in the python after imporging ``gym``
+To run the environments, you need to import ``gym_customersim`` in Python after importing ``gym``. For example,
 
 ```python
 import gym
 import gym_customersim
 env = gym.make("CustomerSim-v0")
-```
 
-# Train Simulator Models
+# or
+env = gym.make("ChurnSim-v2")
+```
+# Train Simulator Models for Churn
+trainChurnModel.py trains a logistic regression to predict churn of a customer. The resulted model is saved as ``churn_model.sav``. 
+
+# Train Simulator Models for Customer Journey
 + `src` folder contains the code to replicate results of the paper
 + the folder should be placed within a parent folder that contains unzipped data, downloaded from the links above
 + then run `bash train_and_validate_all.sh` - it will take a couple of hours to finish (to preprocess the data, to train and validate the models)
@@ -62,8 +71,11 @@ Note, this code contains a correction and uses &tau;=0.275 in KDD98 simulation, 
 
 + customersim
     + train_and_validate_all.sh
+    + trainChurnModel.py
     + simulate_kdd98.py
     + simulate_vs.py
+    + churn_data
+    + looking_glass_v5.sas7bdat
     + kdd98_data
         + cup98LRN.txt
         + cup98VAL.txt
